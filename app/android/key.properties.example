@@ -1,0 +1,4 @@
+storePassword=TROQUE_AQUI
+keyPassword=TROQUE_AQUI
+keyAlias=apelmat-servicos
+storeFile=upload-keystore.jks

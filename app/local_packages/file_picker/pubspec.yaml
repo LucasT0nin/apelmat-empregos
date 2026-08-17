@@ -1,0 +1,6 @@
+name: file_picker
+version: 11.0.2
+publish_to: none
+environment:
+  sdk: ^3.7.0
+

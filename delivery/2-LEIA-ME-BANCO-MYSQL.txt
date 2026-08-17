@@ -1,0 +1,22 @@
+PACOTE 2 - BANCO MYSQL LOCAWEB
+===============================
+
+IMPORTANTE: NAO IMPORTE ESTE ZIP NO PHPMYADMIN.
+
+Use este pacote somente se existir um produto MySQL separado no painel da
+Locaweb. Crie um banco vazio e copie host, porta, nome, usuario e senha.
+
+Na pasta deploy do pacote 1, execute:
+cp .env.vps-external.example .env.vps-external
+nano .env.vps-external
+
+Preencha MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_USER e MYSQL_PASSWORD.
+Depois execute:
+chmod +x start-vps-external-mysql.sh
+./start-vps-external-mysql.sh
+
+O Django conecta no MySQL vazio e cria todas as tabelas com as migrations. O
+pacote inclui uma copia das migrations para conferencia e versionamento.
+
+Se voce usar o MySQL privado que o pacote 1 inicia dentro da VPS, ignore este
+pacote 2. Essa e a opcao mais simples para o primeiro lancamento.

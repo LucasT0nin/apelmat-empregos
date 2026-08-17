@@ -1,0 +1,22 @@
+PACOTE 3 - GOOGLE PLAY
+=======================
+
+ARQUIVO PARA ENVIAR
+3-APP-GOOGLE-PLAY-SUBIR-ESTE.aab
+
+ONDE ENVIAR
+1. Entre na Google Play Console.
+2. Crie um novo aplicativo chamado Apelmat Empregos.
+3. Abra Teste interno e crie uma nova versao.
+4. Envie o arquivo .aab.
+5. Preencha a ficha da loja, classificacao de conteudo e seguranca de dados.
+6. Use esta politica de privacidade:
+   https://empregos.apelmat.com.br/privacidade/
+7. Publique primeiro no teste interno e depois promova para Producao.
+
+IDENTIFICADOR ANDROID
+br.com.apelmat.apelmat_empregos
+
+NAO ENVIAR
+Nao envie APK, ZIP da VPS, senha, key.properties ou arquivo .jks na tela da
+versao. O arquivo 4 deve ficar guardado fora da Google Play.

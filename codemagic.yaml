@@ -1,0 +1,48 @@
+workflows:
+  ios-testflight:
+    name: Apelmat Empregos iOS - TestFlight
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+
+    integrations:
+      app_store_connect: apelmat-app-store-connect
+
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: br.com.apelmat.apelmatempregos
+      vars:
+        API_BASE_URL: https://empregos.apelmat.com.br/api
+
+    scripts:
+      - name: Get Flutter packages
+        script: |
+          cd app
+          flutter pub get
+
+      - name: Install CocoaPods dependencies
+        script: |
+          cd app
+          find ios -name "Podfile" -execdir pod install \;
+
+      - name: Set up iOS code signing
+        script: |
+          cd app
+          xcode-project use-profiles
+
+      - name: Build iOS IPA
+        script: |
+          cd app
+          flutter build ipa --release --dart-define=API_BASE_URL=$API_BASE_URL
+
+    artifacts:
+      - app/build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false

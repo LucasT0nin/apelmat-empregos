@@ -1,0 +1,3132 @@
+openapi: 3.0.3
+info:
+  title: Apelmat Empregos API
+  version: 0.1.0
+  description: API do catalogo controlado de empregos da Apelmat.
+paths:
+  /api/accounts/me/:
+    get:
+      operationId: api_accounts_me_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: api_accounts_me_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: api_accounts_me_partial_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/accounts/me/contractor/:
+    get:
+      operationId: api_accounts_me_contractor_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractorProfile'
+          description: ''
+    put:
+      operationId: api_accounts_me_contractor_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractorProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContractorProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContractorProfile'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractorProfile'
+          description: ''
+    patch:
+      operationId: api_accounts_me_contractor_partial_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedContractorProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedContractorProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedContractorProfile'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractorProfile'
+          description: ''
+  /api/accounts/me/delete/:
+    delete:
+      operationId: api_accounts_me_delete_destroy
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/accounts/me/professional/:
+    get:
+      operationId: api_accounts_me_professional_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalProfile'
+          description: ''
+    put:
+      operationId: api_accounts_me_professional_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfessionalProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProfessionalProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProfessionalProfile'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalProfile'
+          description: ''
+    patch:
+      operationId: api_accounts_me_professional_partial_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProfessionalProfile'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProfessionalProfile'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProfessionalProfile'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalProfile'
+          description: ''
+  /api/accounts/professionals/:
+    get:
+      operationId: api_accounts_professionals_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Qual campo usar ao ordenar os resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Um número de página dentro do conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Um termo de busca.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProfessionalDirectoryList'
+          description: ''
+  /api/accounts/professionals/{user_id}/resume/:
+    get:
+      operationId: api_accounts_professionals_resume_retrieve
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+          description: ''
+  /api/accounts/register/:
+    post:
+      operationId: api_accounts_register_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+  /api/auth/token/:
+    post:
+      operationId: api_auth_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/auth/token/refresh/:
+    post:
+      operationId: api_auth_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/marketplace/applications/:
+    get:
+      operationId: api_marketplace_applications_list
+      parameters:
+      - in: query
+        name: opportunity
+        schema:
+          type: string
+          format: uuid
+      - name: ordering
+        required: false
+        in: query
+        description: Qual campo usar ao ordenar os resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Um número de página dentro do conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Um termo de busca.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - accepted
+          - rejected
+          - reviewing
+          - submitted
+          - withdrawn
+        description: |-
+          * `submitted` - Enviada
+          * `reviewing` - Em analise
+          * `accepted` - Aceita
+          * `rejected` - Recusada
+          * `withdrawn` - Retirada
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedApplicationList'
+          description: ''
+    post:
+      operationId: api_marketplace_applications_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Application'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: ''
+  /api/marketplace/applications/{id}/:
+    get:
+      operationId: api_marketplace_applications_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este application.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: ''
+    put:
+      operationId: api_marketplace_applications_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este application.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Application'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: ''
+    patch:
+      operationId: api_marketplace_applications_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este application.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedApplication'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: ''
+    delete:
+      operationId: api_marketplace_applications_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este application.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/marketplace/applications/mine/:
+    get:
+      operationId: api_marketplace_applications_mine_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: ''
+  /api/marketplace/applications/received/:
+    get:
+      operationId: api_marketplace_applications_received_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: ''
+  /api/marketplace/categories/:
+    get:
+      operationId: api_marketplace_categories_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Qual campo usar ao ordenar os resultados.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: Um termo de busca.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceCategory'
+          description: ''
+  /api/marketplace/categories/{id}/:
+    get:
+      operationId: api_marketplace_categories_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este service category.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceCategory'
+          description: ''
+  /api/marketplace/contact-requests/:
+    get:
+      operationId: api_marketplace_contact_requests_list
+      parameters:
+      - in: query
+        name: objective
+        schema:
+          type: string
+          format: uuid
+      - name: ordering
+        required: false
+        in: query
+        description: Qual campo usar ao ordenar os resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Um número de página dentro do conjunto de resultados paginado.
+        schema:
+          type: integer
+      - in: query
+        name: professional
+        schema:
+          type: string
+          format: uuid
+      - name: search
+        required: false
+        in: query
+        description: Um termo de busca.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - approved
+          - cancelled
+          - pending
+          - rejected
+        description: |-
+          * `pending` - Em analise
+          * `approved` - Contato liberado
+          * `rejected` - Recusado
+          * `cancelled` - Cancelado
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedContactRequestList'
+          description: ''
+    post:
+      operationId: api_marketplace_contact_requests_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactRequest'
+          description: ''
+  /api/marketplace/contact-requests/{id}/:
+    get:
+      operationId: api_marketplace_contact_requests_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este 02. Solicitacao de contato.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactRequest'
+          description: ''
+    put:
+      operationId: api_marketplace_contact_requests_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este 02. Solicitacao de contato.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactRequest'
+          description: ''
+    patch:
+      operationId: api_marketplace_contact_requests_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este 02. Solicitacao de contato.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedContactRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedContactRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedContactRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactRequest'
+          description: ''
+    delete:
+      operationId: api_marketplace_contact_requests_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este 02. Solicitacao de contato.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/marketplace/contact-requests/mine/:
+    get:
+      operationId: api_marketplace_contact_requests_mine_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactRequest'
+          description: ''
+  /api/marketplace/notifications/:
+    get:
+      operationId: api_marketplace_notifications_list
+      parameters:
+      - in: query
+        name: is_read
+        schema:
+          type: boolean
+      - in: query
+        name: kind
+        schema:
+          type: string
+          enum:
+          - application
+          - application_status
+          - contact_rejected
+          - contact_released
+          - contact_request
+          - new_opportunity
+          - new_resume
+          - profile_review
+        description: |-
+          * `new_resume` - Novo curriculo
+          * `new_opportunity` - Nova oportunidade
+          * `application` - Candidatura
+          * `application_status` - Status da candidatura
+          * `profile_review` - Analise de curriculo
+          * `contact_request` - Solicitacao de contato
+          * `contact_released` - Contato liberado
+          * `contact_rejected` - Contato recusado
+      - name: ordering
+        required: false
+        in: query
+        description: Qual campo usar ao ordenar os resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Um número de página dentro do conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Um termo de busca.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedNotificationList'
+          description: ''
+  /api/marketplace/notifications/{id}/:
+    get:
+      operationId: api_marketplace_notifications_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este 03. Aviso.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: ''
+  /api/marketplace/notifications/{id}/read/:
+    post:
+      operationId: api_marketplace_notifications_read_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este 03. Aviso.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Notification'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Notification'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Notification'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: ''
+  /api/marketplace/notifications/read-all/:
+    post:
+      operationId: api_marketplace_notifications_read_all_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Notification'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Notification'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Notification'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: ''
+  /api/marketplace/opportunities/:
+    get:
+      operationId: api_marketplace_opportunities_list
+      parameters:
+      - in: query
+        name: category
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: city
+        schema:
+          type: string
+      - in: query
+        name: kind
+        schema:
+          type: string
+          enum:
+          - job
+          - service
+        description: |-
+          * `job` - Emprego
+          * `service` - Servico
+      - in: query
+        name: listing_type
+        schema:
+          type: string
+          enum:
+          - hiring
+          - work_offer
+        description: |-
+          * `work_offer` - Profissional oferecendo trabalho
+          * `hiring` - Contratante buscando profissional
+      - name: ordering
+        required: false
+        in: query
+        description: Qual campo usar ao ordenar os resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Um número de página dentro do conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Um termo de busca.
+        schema:
+          type: string
+      - in: query
+        name: state
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - cancelled
+          - closed
+          - draft
+          - published
+        description: |-
+          * `draft` - Rascunho
+          * `published` - Publicada
+          * `closed` - Encerrada
+          * `cancelled` - Cancelada
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedOpportunityList'
+          description: ''
+    post:
+      operationId: api_marketplace_opportunities_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Opportunity'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Opportunity'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Opportunity'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Opportunity'
+          description: ''
+  /api/marketplace/opportunities/{id}/:
+    get:
+      operationId: api_marketplace_opportunities_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este opportunity.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Opportunity'
+          description: ''
+    put:
+      operationId: api_marketplace_opportunities_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este opportunity.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Opportunity'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Opportunity'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Opportunity'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Opportunity'
+          description: ''
+    patch:
+      operationId: api_marketplace_opportunities_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este opportunity.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedOpportunity'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedOpportunity'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedOpportunity'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Opportunity'
+          description: ''
+    delete:
+      operationId: api_marketplace_opportunities_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este opportunity.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/marketplace/opportunities/mine/:
+    get:
+      operationId: api_marketplace_opportunities_mine_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Opportunity'
+          description: ''
+  /api/marketplace/professional-objectives/:
+    get:
+      operationId: api_marketplace_professional_objectives_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Qual campo usar ao ordenar os resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Um número de página dentro do conjunto de resultados paginado.
+        schema:
+          type: integer
+      - in: query
+        name: role
+        schema:
+          type: string
+          enum:
+          - encarregado
+          - engenheiro
+          - motorista_caminhao
+          - operador
+          - outros
+        description: |-
+          * `operador` - Operador
+          * `motorista_caminhao` - Motorista de caminhao
+          * `encarregado` - Encarregado
+          * `engenheiro` - Engenheiro
+          * `outros` - Outros
+      - name: search
+        required: false
+        in: query
+        description: Um termo de busca.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - draft
+          - paused
+          - published
+          - rejected
+          - review
+        description: |-
+          * `draft` - Rascunho
+          * `review` - Em analise
+          * `published` - Publicado
+          * `paused` - Pausado
+          * `rejected` - Recusado
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProfessionalObjectiveList'
+          description: ''
+    post:
+      operationId: api_marketplace_professional_objectives_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfessionalObjective'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProfessionalObjective'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProfessionalObjective'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalObjective'
+          description: ''
+  /api/marketplace/professional-objectives/{id}/:
+    get:
+      operationId: api_marketplace_professional_objectives_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este 01. Area profissional.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalObjective'
+          description: ''
+    put:
+      operationId: api_marketplace_professional_objectives_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este 01. Area profissional.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfessionalObjective'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProfessionalObjective'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProfessionalObjective'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalObjective'
+          description: ''
+    patch:
+      operationId: api_marketplace_professional_objectives_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este 01. Area profissional.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProfessionalObjective'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProfessionalObjective'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProfessionalObjective'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalObjective'
+          description: ''
+    delete:
+      operationId: api_marketplace_professional_objectives_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este 01. Area profissional.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/marketplace/professional-objectives/mine/:
+    get:
+      operationId: api_marketplace_professional_objectives_mine_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfessionalObjective'
+          description: ''
+  /api/moderation/blocks/:
+    get:
+      operationId: api_moderation_blocks_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Qual campo usar ao ordenar os resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Um número de página dentro do conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Um termo de busca.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBlockList'
+          description: ''
+    post:
+      operationId: api_moderation_blocks_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Block'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Block'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Block'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Block'
+          description: ''
+  /api/moderation/blocks/{id}/:
+    get:
+      operationId: api_moderation_blocks_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este block.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Block'
+          description: ''
+    delete:
+      operationId: api_moderation_blocks_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este block.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/moderation/reports/:
+    get:
+      operationId: api_moderation_reports_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Qual campo usar ao ordenar os resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Um número de página dentro do conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Um termo de busca.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReportList'
+          description: ''
+    post:
+      operationId: api_moderation_reports_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Report'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Report'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Report'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+          description: ''
+  /api/moderation/reports/{id}/:
+    get:
+      operationId: api_moderation_reports_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: Um string UUID que identifica este report.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+          description: ''
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    AccountTypeEnum:
+      enum:
+      - professional
+      - contractor
+      - both
+      type: string
+      description: |-
+        * `professional` - Profissional
+        * `contractor` - Contratante
+        * `both` - Ambos
+    Application:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        opportunity:
+          type: string
+          format: uuid
+        opportunity_title:
+          type: string
+          readOnly: true
+        applicant_id:
+          type: string
+          format: uuid
+          readOnly: true
+        applicant_name:
+          type: string
+          readOnly: true
+        applicant_email:
+          type: string
+          readOnly: true
+        applicant_phone:
+          type: string
+          readOnly: true
+        applicant_resume_url:
+          type: string
+          nullable: true
+          readOnly: true
+        professional_id:
+          type: string
+          format: uuid
+          readOnly: true
+        professional_name:
+          type: string
+          readOnly: true
+        professional_email:
+          type: string
+          readOnly: true
+        professional_phone:
+          type: string
+          readOnly: true
+        professional_resume_url:
+          type: string
+          nullable: true
+          readOnly: true
+        cover_letter:
+          type: string
+        proposed_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        status:
+          $ref: '#/components/schemas/ApplicationStatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - applicant_email
+      - applicant_id
+      - applicant_name
+      - applicant_phone
+      - applicant_resume_url
+      - created_at
+      - id
+      - opportunity
+      - opportunity_title
+      - professional_email
+      - professional_id
+      - professional_name
+      - professional_phone
+      - professional_resume_url
+      - updated_at
+    ApplicationStatusEnum:
+      enum:
+      - submitted
+      - reviewing
+      - accepted
+      - rejected
+      - withdrawn
+      type: string
+      description: |-
+        * `submitted` - Enviada
+        * `reviewing` - Em analise
+        * `accepted` - Aceita
+        * `rejected` - Recusada
+        * `withdrawn` - Retirada
+    AreaEnum:
+      enum:
+      - operador
+      - administrativo
+      - logistica
+      - manutencao
+      - eletrica
+      - mecanica
+      - transporte
+      - limpeza
+      - producao
+      - seguranca
+      - outros
+      type: string
+      description: |-
+        * `operador` - Operador
+        * `administrativo` - Administrativo
+        * `logistica` - Logistica
+        * `manutencao` - Manutencao
+        * `eletrica` - Eletrica
+        * `mecanica` - Mecanica
+        * `transporte` - Transporte
+        * `limpeza` - Limpeza
+        * `producao` - Producao
+        * `seguranca` - Seguranca
+        * `outros` - Outros
+    AvailabilityEnum:
+      enum:
+      - available
+      - busy
+      - unavailable
+      type: string
+      description: |-
+        * `available` - Disponivel
+        * `busy` - Ocupado
+        * `unavailable` - Indisponivel
+    BlankEnum:
+      enum:
+      - ''
+    Block:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        blocked:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - blocked
+      - created_at
+      - id
+    BudgetTypeEnum:
+      enum:
+      - fixed
+      - hourly
+      - negotiable
+      type: string
+      description: |-
+        * `fixed` - Valor fechado
+        * `hourly` - Por hora
+        * `negotiable` - A combinar
+    CatalogStatusEnum:
+      enum:
+      - draft
+      - review
+      - published
+      - paused
+      - rejected
+      type: string
+      description: |-
+        * `draft` - Rascunho
+        * `review` - Em analise
+        * `published` - Publicado
+        * `paused` - Pausado
+        * `rejected` - Recusado
+    ContactRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        company_id:
+          type: string
+          format: uuid
+          readOnly: true
+        company_name:
+          type: string
+          readOnly: true
+        professional:
+          type: string
+          format: uuid
+          writeOnly: true
+        professional_id:
+          type: string
+          format: uuid
+          readOnly: true
+        professional_name:
+          type: string
+          readOnly: true
+        professional_city:
+          type: string
+          readOnly: true
+        professional_state:
+          type: string
+          readOnly: true
+        objective:
+          type: string
+          format: uuid
+          nullable: true
+        role:
+          type: string
+          readOnly: true
+        role_label:
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/ContactRequestStatusEnum'
+          readOnly: true
+        status_label:
+          type: string
+          readOnly: true
+        professional_email:
+          type: string
+          nullable: true
+          readOnly: true
+        professional_phone:
+          type: string
+          nullable: true
+          readOnly: true
+        resume_download_url:
+          type: string
+          nullable: true
+          readOnly: true
+        release_notes:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        decided_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+      required:
+      - company_id
+      - company_name
+      - created_at
+      - decided_at
+      - id
+      - professional
+      - professional_city
+      - professional_email
+      - professional_id
+      - professional_name
+      - professional_phone
+      - professional_state
+      - release_notes
+      - resume_download_url
+      - role
+      - role_label
+      - status
+      - status_label
+      - updated_at
+    ContactRequestStatusEnum:
+      enum:
+      - pending
+      - approved
+      - rejected
+      - cancelled
+      type: string
+      description: |-
+        * `pending` - Em analise
+        * `approved` - Contato liberado
+        * `rejected` - Recusado
+        * `cancelled` - Cancelado
+    ContractorProfile:
+      type: object
+      properties:
+        company_name:
+          type: string
+          maxLength: 160
+        document:
+          type: string
+          writeOnly: true
+          maxLength: 30
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+    ListingTypeEnum:
+      enum:
+      - work_offer
+      - hiring
+      type: string
+      description: |-
+        * `work_offer` - Profissional oferecendo trabalho
+        * `hiring` - Contratante buscando profissional
+    Notification:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        kind:
+          allOf:
+          - $ref: '#/components/schemas/NotificationKindEnum'
+          readOnly: true
+        title:
+          type: string
+          readOnly: true
+        body:
+          type: string
+          readOnly: true
+        opportunity:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        professional:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        contact_request:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        is_read:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - body
+      - contact_request
+      - created_at
+      - id
+      - kind
+      - opportunity
+      - professional
+      - title
+    NotificationKindEnum:
+      enum:
+      - new_resume
+      - new_opportunity
+      - application
+      - application_status
+      - profile_review
+      - contact_request
+      - contact_released
+      - contact_rejected
+      type: string
+      description: |-
+        * `new_resume` - Novo curriculo
+        * `new_opportunity` - Nova oportunidade
+        * `application` - Candidatura
+        * `application_status` - Status da candidatura
+        * `profile_review` - Analise de curriculo
+        * `contact_request` - Solicitacao de contato
+        * `contact_released` - Contato liberado
+        * `contact_rejected` - Contato recusado
+    Opportunity:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        owner_id:
+          type: string
+          format: uuid
+          readOnly: true
+        owner_name:
+          type: string
+          readOnly: true
+        owner_email:
+          type: string
+          nullable: true
+          readOnly: true
+        owner_phone:
+          type: string
+          nullable: true
+          readOnly: true
+        owner_resume_url:
+          type: string
+          nullable: true
+          readOnly: true
+        category:
+          type: string
+          format: uuid
+        category_name:
+          type: string
+          readOnly: true
+        listing_type:
+          $ref: '#/components/schemas/ListingTypeEnum'
+        kind:
+          $ref: '#/components/schemas/OpportunityKindEnum'
+        title:
+          type: string
+          maxLength: 140
+        description:
+          type: string
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+        budget_type:
+          $ref: '#/components/schemas/BudgetTypeEnum'
+        budget_min:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        budget_max:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        status:
+          $ref: '#/components/schemas/OpportunityStatusEnum'
+        application_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        published_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+      required:
+      - application_count
+      - category_name
+      - city
+      - created_at
+      - description
+      - id
+      - owner_email
+      - owner_id
+      - owner_name
+      - owner_phone
+      - owner_resume_url
+      - published_at
+      - state
+      - title
+      - updated_at
+    OpportunityKindEnum:
+      enum:
+      - job
+      - service
+      type: string
+      description: |-
+        * `job` - Emprego
+        * `service` - Servico
+    OpportunityStatusEnum:
+      enum:
+      - draft
+      - published
+      - closed
+      - cancelled
+      type: string
+      description: |-
+        * `draft` - Rascunho
+        * `published` - Publicada
+        * `closed` - Encerrada
+        * `cancelled` - Cancelada
+    PaginatedApplicationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Application'
+    PaginatedBlockList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Block'
+    PaginatedContactRequestList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactRequest'
+    PaginatedNotificationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+    PaginatedOpportunityList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Opportunity'
+    PaginatedProfessionalDirectoryList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfessionalDirectory'
+    PaginatedProfessionalObjectiveList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfessionalObjective'
+    PaginatedReportList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Report'
+    PatchedApplication:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        opportunity:
+          type: string
+          format: uuid
+        opportunity_title:
+          type: string
+          readOnly: true
+        applicant_id:
+          type: string
+          format: uuid
+          readOnly: true
+        applicant_name:
+          type: string
+          readOnly: true
+        applicant_email:
+          type: string
+          readOnly: true
+        applicant_phone:
+          type: string
+          readOnly: true
+        applicant_resume_url:
+          type: string
+          nullable: true
+          readOnly: true
+        professional_id:
+          type: string
+          format: uuid
+          readOnly: true
+        professional_name:
+          type: string
+          readOnly: true
+        professional_email:
+          type: string
+          readOnly: true
+        professional_phone:
+          type: string
+          readOnly: true
+        professional_resume_url:
+          type: string
+          nullable: true
+          readOnly: true
+        cover_letter:
+          type: string
+        proposed_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        status:
+          $ref: '#/components/schemas/ApplicationStatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedContactRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        company_id:
+          type: string
+          format: uuid
+          readOnly: true
+        company_name:
+          type: string
+          readOnly: true
+        professional:
+          type: string
+          format: uuid
+          writeOnly: true
+        professional_id:
+          type: string
+          format: uuid
+          readOnly: true
+        professional_name:
+          type: string
+          readOnly: true
+        professional_city:
+          type: string
+          readOnly: true
+        professional_state:
+          type: string
+          readOnly: true
+        objective:
+          type: string
+          format: uuid
+          nullable: true
+        role:
+          type: string
+          readOnly: true
+        role_label:
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/ContactRequestStatusEnum'
+          readOnly: true
+        status_label:
+          type: string
+          readOnly: true
+        professional_email:
+          type: string
+          nullable: true
+          readOnly: true
+        professional_phone:
+          type: string
+          nullable: true
+          readOnly: true
+        resume_download_url:
+          type: string
+          nullable: true
+          readOnly: true
+        release_notes:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        decided_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+    PatchedContractorProfile:
+      type: object
+      properties:
+        company_name:
+          type: string
+          maxLength: 160
+        document:
+          type: string
+          writeOnly: true
+          maxLength: 30
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+    PatchedOpportunity:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        owner_id:
+          type: string
+          format: uuid
+          readOnly: true
+        owner_name:
+          type: string
+          readOnly: true
+        owner_email:
+          type: string
+          nullable: true
+          readOnly: true
+        owner_phone:
+          type: string
+          nullable: true
+          readOnly: true
+        owner_resume_url:
+          type: string
+          nullable: true
+          readOnly: true
+        category:
+          type: string
+          format: uuid
+        category_name:
+          type: string
+          readOnly: true
+        listing_type:
+          $ref: '#/components/schemas/ListingTypeEnum'
+        kind:
+          $ref: '#/components/schemas/OpportunityKindEnum'
+        title:
+          type: string
+          maxLength: 140
+        description:
+          type: string
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+        budget_type:
+          $ref: '#/components/schemas/BudgetTypeEnum'
+        budget_min:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        budget_max:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        status:
+          $ref: '#/components/schemas/OpportunityStatusEnum'
+        application_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        published_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+    PatchedProfessionalObjective:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        role_label:
+          type: string
+          readOnly: true
+        summary:
+          type: string
+          maxLength: 180
+        salary_expectation:
+          type: string
+          maxLength: 80
+        availability:
+          type: string
+          maxLength: 120
+        answers: {}
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusAfdEnum'
+          readOnly: true
+        status_label:
+          type: string
+          readOnly: true
+        admin_notes:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedProfessionalProfile:
+      type: object
+      properties:
+        headline:
+          type: string
+          maxLength: 140
+        bio:
+          type: string
+        area:
+          oneOf:
+          - $ref: '#/components/schemas/AreaEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+        availability:
+          $ref: '#/components/schemas/AvailabilityEnum'
+        years_of_experience:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        resume:
+          type: string
+          format: uri
+        profile_visible:
+          type: boolean
+        catalog_status:
+          allOf:
+          - $ref: '#/components/schemas/CatalogStatusEnum'
+          readOnly: true
+        verified_by_apelmat:
+          type: boolean
+          readOnly: true
+        review_notes:
+          type: string
+          readOnly: true
+        reviewed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+    PatchedUser:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        display_name:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 30
+        account_type:
+          $ref: '#/components/schemas/AccountTypeEnum'
+        is_verified:
+          type: boolean
+          readOnly: true
+        is_staff:
+          type: boolean
+          readOnly: true
+          title: Membro da equipe
+          description: Indica que usuário consegue acessar este site de administração.
+        professional_profile:
+          allOf:
+          - $ref: '#/components/schemas/ProfessionalProfile'
+          readOnly: true
+        contractor_profile:
+          allOf:
+          - $ref: '#/components/schemas/ContractorProfile'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+    ProfessionalDirectory:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          readOnly: true
+        display_name:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        phone:
+          type: string
+          readOnly: true
+        headline:
+          type: string
+          maxLength: 140
+        bio:
+          type: string
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+        availability:
+          $ref: '#/components/schemas/AvailabilityEnum'
+        years_of_experience:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        verified_by_apelmat:
+          type: boolean
+          readOnly: true
+        catalog_status:
+          type: string
+          readOnly: true
+        objectives:
+          type: string
+          readOnly: true
+        contact_request_id:
+          type: string
+          nullable: true
+          readOnly: true
+        contact_request_status:
+          type: string
+          nullable: true
+          readOnly: true
+        contact_request_status_label:
+          type: string
+          nullable: true
+          readOnly: true
+        has_resume:
+          type: boolean
+          readOnly: true
+        resume_download_url:
+          type: string
+          nullable: true
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - catalog_status
+      - contact_request_id
+      - contact_request_status
+      - contact_request_status_label
+      - display_name
+      - email
+      - has_resume
+      - objectives
+      - phone
+      - resume_download_url
+      - updated_at
+      - user_id
+      - verified_by_apelmat
+    ProfessionalObjective:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        role_label:
+          type: string
+          readOnly: true
+        summary:
+          type: string
+          maxLength: 180
+        salary_expectation:
+          type: string
+          maxLength: 80
+        availability:
+          type: string
+          maxLength: 120
+        answers: {}
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusAfdEnum'
+          readOnly: true
+        status_label:
+          type: string
+          readOnly: true
+        admin_notes:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - admin_notes
+      - created_at
+      - id
+      - role
+      - role_label
+      - status
+      - status_label
+      - updated_at
+    ProfessionalProfile:
+      type: object
+      properties:
+        headline:
+          type: string
+          maxLength: 140
+        bio:
+          type: string
+        area:
+          oneOf:
+          - $ref: '#/components/schemas/AreaEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+        availability:
+          $ref: '#/components/schemas/AvailabilityEnum'
+        years_of_experience:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        resume:
+          type: string
+          format: uri
+        profile_visible:
+          type: boolean
+        catalog_status:
+          allOf:
+          - $ref: '#/components/schemas/CatalogStatusEnum'
+          readOnly: true
+        verified_by_apelmat:
+          type: boolean
+          readOnly: true
+        review_notes:
+          type: string
+          readOnly: true
+        reviewed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+      required:
+      - catalog_status
+      - review_notes
+      - reviewed_at
+      - verified_by_apelmat
+    Register:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        display_name:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+        account_type:
+          $ref: '#/components/schemas/AccountTypeEnum'
+        accept_terms:
+          type: boolean
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - accept_terms
+      - display_name
+      - email
+      - id
+      - password
+      - phone
+    Report:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        target_type:
+          $ref: '#/components/schemas/TargetTypeEnum'
+        target_id:
+          type: string
+          format: uuid
+        reason:
+          type: string
+          maxLength: 120
+        details:
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/ReportStatusEnum'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - reason
+      - status
+      - target_id
+      - target_type
+    ReportStatusEnum:
+      enum:
+      - open
+      - reviewing
+      - resolved
+      - dismissed
+      type: string
+      description: |-
+        * `open` - Aberta
+        * `reviewing` - Em analise
+        * `resolved` - Resolvida
+        * `dismissed` - Descartada
+    RoleEnum:
+      enum:
+      - operador
+      - motorista_caminhao
+      - encarregado
+      - engenheiro
+      - outros
+      type: string
+      description: |-
+        * `operador` - Operador
+        * `motorista_caminhao` - Motorista de caminhao
+        * `encarregado` - Encarregado
+        * `engenheiro` - Engenheiro
+        * `outros` - Outros
+    ServiceCategory:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        slug:
+          type: string
+          maxLength: 120
+          pattern: ^[-a-zA-Z0-9_]+$
+      required:
+      - id
+      - name
+      - slug
+    StatusAfdEnum:
+      enum:
+      - draft
+      - review
+      - published
+      - paused
+      - rejected
+      type: string
+      description: |-
+        * `draft` - Rascunho
+        * `review` - Em analise
+        * `published` - Publicado
+        * `paused` - Pausado
+        * `rejected` - Recusado
+    TargetTypeEnum:
+      enum:
+      - user
+      - opportunity
+      - application
+      type: string
+      description: |-
+        * `user` - Usuario
+        * `opportunity` - Oportunidade
+        * `application` - Candidatura
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        display_name:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 30
+        account_type:
+          $ref: '#/components/schemas/AccountTypeEnum'
+        is_verified:
+          type: boolean
+          readOnly: true
+        is_staff:
+          type: boolean
+          readOnly: true
+          title: Membro da equipe
+          description: Indica que usuário consegue acessar este site de administração.
+        professional_profile:
+          allOf:
+          - $ref: '#/components/schemas/ProfessionalProfile'
+          readOnly: true
+        contractor_profile:
+          allOf:
+          - $ref: '#/components/schemas/ContractorProfile'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - contractor_profile
+      - created_at
+      - display_name
+      - email
+      - id
+      - is_staff
+      - is_verified
+      - professional_profile
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

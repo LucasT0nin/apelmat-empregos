@@ -1,0 +1,30 @@
+PACOTE 1 - SERVIDOR VPS LOCAWEB
+================================
+
+ONDE SUBIR
+Envie este ZIP para a VPS Locaweb por SSH/SFTP, de preferencia para /opt.
+
+COMANDOS NA VPS UBUNTU
+cd /opt
+sudo mkdir -p apelmat-empregos
+sudo unzip 1-SERVIDOR-SUBIR-NA-VPS-LOCAWEB.zip -d apelmat-empregos
+sudo chown -R "$USER":"$USER" apelmat-empregos
+cd apelmat-empregos/deploy
+
+Instale Docker antes, conforme o arquivo VPS-LOCAWEB.md.
+
+BANCO RECOMENDADO, DENTRO DA PROPRIA VPS
+cp .env.vps.example .env.vps
+nano .env.vps
+chmod +x *.sh
+./start-vps.sh
+
+O pacote sobe Caddy/HTTPS, Django/Gunicorn e MySQL 8.4. Nesse modo voce NAO
+precisa do pacote 2. O banco e criado automaticamente e fica privado na VPS.
+
+TESTE FINAL
+https://empregos.apelmat.com.br/api/health/
+https://empregos.apelmat.com.br/admin/
+
+Antes do HTTPS funcionar, o DNS empregos.apelmat.com.br precisa apontar para o
+IP publico da VPS.

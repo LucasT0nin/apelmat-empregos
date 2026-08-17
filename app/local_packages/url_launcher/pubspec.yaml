@@ -1,0 +1,9 @@
+name: url_launcher
+version: 6.3.2
+publish_to: none
+environment:
+  sdk: ^3.7.0
+dependencies:
+  flutter:
+    sdk: flutter
+

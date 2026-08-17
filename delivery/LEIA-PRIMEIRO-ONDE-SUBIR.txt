@@ -1,0 +1,31 @@
+APELMAT EMPREGOS - ONDE SUBIR CADA ARQUIVO
+==========================================
+
+1-SERVIDOR-SUBIR-NA-VPS-LOCAWEB.zip
+DESTINO: servidor VPS da Locaweb, por SSH ou SFTP.
+NAO enviar para Google Play e NAO importar no phpMyAdmin.
+Depois de descompactar na VPS, siga o LEIA-ME que esta dentro do ZIP.
+
+2-BANCO-MYSQL-CONFIGURAR-LOCAWEB.zip
+DESTINO: este ZIP NAO e importado no MySQL.
+Use somente se voce contratou um banco MySQL separado da VPS.
+Crie um banco vazio no painel Locaweb e use os dados no arquivo de configuracao.
+As tabelas sao criadas automaticamente pelo servidor Django.
+Se usar o MySQL que ja vem no pacote 1, ignore completamente o pacote 2.
+
+3-APP-GOOGLE-PLAY-SUBIR-ESTE.aab
+DESTINO: Google Play Console, dentro de uma nova versao do aplicativo.
+Este e o arquivo que a loja recebe. APK e ZIP nao sao enviados nessa tela.
+
+4-CHAVE-ASSINATURA-GUARDAR-NAO-SUBIR.zip
+DESTINO: dois locais privados e seguros de backup.
+NAO enviar para Google Play, Locaweb, e-mail ou outras pessoas.
+Essa chave assina as futuras atualizacoes do aplicativo.
+
+ORDEM CORRETA
+-------------
+1. Subir e iniciar o pacote 1 na VPS.
+2. Apontar empregos.apelmat.com.br para o IP da VPS.
+3. Confirmar que https://empregos.apelmat.com.br/api/health/ funciona.
+4. Criar o app novo na Google Play e enviar o arquivo 3.
+5. Guardar o arquivo 4 em dois locais seguros.
