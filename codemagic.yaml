@@ -4,16 +4,15 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m2
 
-    integrations:
-      app_store_connect: "Empregos apelmat"
-
     environment:
       flutter: stable
       xcode: latest
       cocoapods: default
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: br.com.apelmat.apelmatempregos
+        provisioning_profiles:
+          - apelmat_ios_appstore_profile
+        certificates:
+          - apelmat_ios_distribution
       vars:
         API_BASE_URL: https://empregos.apelmat.com.br/api
 
@@ -41,8 +40,3 @@ workflows:
     artifacts:
       - app/build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
-
-    publishing:
-      app_store_connect:
-        auth: integration
-        submit_to_testflight: false
