@@ -10,7 +10,7 @@ workflows:
       cocoapods: default
       ios_signing:
         provisioning_profiles:
-          - apelmat_ios_appstore_profile
+          - br.com.apelmat.apelmatempregos
         certificates:
           - apelmat_ios_distribution
       vars:
