@@ -5,7 +5,7 @@ workflows:
     instance_type: mac_mini_m2
 
     integrations:
-      app_store_connect: apelmat-app-store-connect
+      app_store_connect: "Empregos apelmat"
 
     environment:
       flutter: stable
