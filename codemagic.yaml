@@ -30,12 +30,12 @@ workflows:
       - name: Set up iOS code signing
         script: |
           cd app
-          xcode-project use-profiles
+          xcode-project use-profiles --project ios/Runner.xcodeproj --code-signing-setup-verbose-logging
 
       - name: Build iOS IPA
         script: |
           cd app
-          flutter build ipa --release --dart-define=API_BASE_URL=$API_BASE_URL
+          flutter build ipa --release --dart-define=API_BASE_URL=$API_BASE_URL --export-options-plist=/Users/builder/export_options.plist
 
     artifacts:
       - app/build/ios/ipa/*.ipa
