@@ -15,6 +15,7 @@ workflows:
           - apelmat_ios_distribution
       vars:
         API_BASE_URL: https://empregos.apelmat.com.br/api
+        IOS_BUILD_NAME: "1.0"
 
     scripts:
       - name: Get Flutter packages
@@ -35,8 +36,15 @@ workflows:
       - name: Build iOS IPA
         script: |
           cd app
-          flutter build ipa --release --dart-define=API_BASE_URL=$API_BASE_URL --export-options-plist=/Users/builder/export_options.plist
+          flutter build ipa --release --dart-define=API_BASE_URL=$API_BASE_URL --build-name=$IOS_BUILD_NAME --build-number=$BUILD_NUMBER --export-options-plist=/Users/builder/export_options.plist
 
     artifacts:
       - app/build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
+
+    publishing:
+      app_store_connect:
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        submit_to_testflight: false
