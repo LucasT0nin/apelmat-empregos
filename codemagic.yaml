@@ -8,6 +8,8 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
+      groups:
+        - apple
       ios_signing:
         provisioning_profiles:
           - br.com.apelmat.apelmatempregos
