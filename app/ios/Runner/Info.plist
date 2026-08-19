@@ -22,6 +22,12 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>NSCameraUsageDescription</key>
+	<string>A camera pode ser usada, somente quando voce escolher, para anexar documentos ou imagens ao seu curriculo e perfil profissional.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>A localizacao pode ser solicitada, somente com sua autorizacao, para ajudar a identificar sua regiao de atuacao profissional.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>A biblioteca de fotos pode ser usada, somente quando voce escolher, para selecionar documentos ou imagens para o seu curriculo e perfil profissional.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsLocalNetworking</key>
